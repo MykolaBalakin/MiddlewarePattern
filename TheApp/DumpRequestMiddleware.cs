@@ -6,18 +6,11 @@ namespace TheApp
 {
     public class DumpRequestMiddleware
     {
-        private readonly RequestDelegate _next;
-
-        public DumpRequestMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(RequestContext context)
+        public async Task InvokeAsync(RequestDelegate next, RequestContext context)
         {
             await Task.Delay(100);
             Console.WriteLine(context.Request);
-            await _next.Invoke();
+            await next.Invoke();
         }
     }
 }

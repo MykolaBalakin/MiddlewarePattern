@@ -7,17 +7,10 @@ namespace TheApp
 {
     public class PerformanceMiddleware
     {
-        private readonly RequestDelegate _next;
-
-        public PerformanceMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(RequestContext context)
+        public async Task InvokeAsync(RequestDelegate next, RequestContext context)
         {
             var stopwatch = Stopwatch.StartNew();
-            await _next.Invoke();
+            await next.Invoke();
             stopwatch.Stop();
             Console.WriteLine("Elapsed: " + stopwatch.Elapsed);
         }
